@@ -247,7 +247,7 @@ At the end of the file => `can you diggest this message ?` => A message digest i
 password : `646da671ca01bb5d84dbb5fb2238dc8e` (encrypt with MD5)
 
 ## Zaz
-Une fois log avec l'id de zaz on a un executable `exploit_me`, avec ghidra on sait que le code source de cet executable est sensiblement :
+Using `ghidra`, we have an approximate source code of `exploit_me` :
 ```
 bool main(int param_1,int param_2)
 {
