@@ -148,7 +148,7 @@ HINT:
 P
  2
  b
- 
+
 o
 4
 
@@ -156,28 +156,26 @@ NO SPACE IN THE PASSWORD (password is case sensitive).
 $ ./bomb
 Welcome this is my little bomb !!!! You have 6 stages with
 only one life good luck !! Have a nice day!
+
 ```
 
-`bomb` attend une saisie
 ### Diffuse the bomb
-- pass 1 \
-cherchons le pass qui correspond a l'indice du readme
+- phase 1 : *hint 'P'*
 
 ```
 $ strings bomb | grep P
 PTRh
-pass 1 defused. How about the next one?
+phase 1 defused. How about the next one?
 Public speaking is very easy.
 Error: Premature EOF on stdin
 ```
-La premiere pass est donc '`Public speaking is very easy.`'
+key 1 = `Public speaking is very easy.`
 
-- pass 2 \
-un grep ne nous aide pas, on va donc faire un `strings bomb` et chercher un peu.
+- phase 2 : *hint ' 2'*
 ```
 $ strings bomb
 ...
-pass 1 defused. How about the next one?
+phase 1 defused. How about the next one?
 That's number 2.  Keep going!
 Halfway there!
 So you got that one.  Try this one.
@@ -188,43 +186,46 @@ giants
 Wow! You've defused the secret stage!
 ...
 ```
-On utilise `Ghidra` qui est un dé-compilateur, en analysant le code on trouve que le pass 2 correspond aux 6 premiers elements de la suite qui verifie :
+`Ghidra` is a reverse engineering software use to parse code.\
+We find that phase 2 corresponds to the 6 first elements of the following sequence:
 ```
 U1 = 1
 Un+1 = (n + 1) * Un;
 ```
-donc `1 2 6 24 120 720`
+key 2 = `1 2 6 24 120 720`
 
-- pass 3 \
-ici, il s'agit d'`un nombre` puis un `b` puis `un nombre`\
-Toujours avec Ghidra on trouve que les seul possibilité pour le premier nombre sont `1`, `2` et `7` qui ont pour second nombre dans l'ordre `214`, `755`, `524`\
-Ce qui donne les 3 passs valides suivantes:
+- phase 3 : *hint ' b'*\
+syntax : int char int\
+using Ghidra we found the following 3 possibilities:
 ```
 1 b 214
 2 b 755
 7 b 524
 ```
 
-- pass 4 \
-Toujours avec Ghidra, il s'agit cette fois d'`un nombre`\
-avec pour suite 
+- phase 4 : *no hint*\
+syntax: int \
+Using `Ghidra` We found the following sequence:
 ```
 U0 = 1
 U1 = 1
 Un+2 = Un + Un+1 
 ```
-Et on cherche `Ux = 55` donc `x = 9`\
-Le pass est donc `9`
+the key is x for Ux = 55, so x = 9\
+key 4 = `9`
 
-- pass 5 \
-Toujours et encore Ghidra, il s'agit d'`une array de 6 char` qui une fois codé donne `giants`\
-Les inputs sont utilisés comme index de la string `isrveawhobpnutfg` avec un & (AND binaire)\
-Nous avons donc besoin des index 15 0 5 11 13 1 obtenable avec `o`, `p`, `e`, `k`, `M`, `q`\
-Le pass est donc `opekMq`
+- phase 5 : *hint 'o'*\
+Using `Ghidra`\
+Syntax: array of 6 char \
+Decrypt must by `giants`\
+Inputs use as index of the string `isrveawhobpnutfg` (& 0xf)\
+We need index 15 0 5 11 13 1 so `o`, `p`, `e`, `k`, `M`, `q`\
+key 5 = `opekMq`
 
-- pass 6 \
-Ghidra encore. Il s´ agit de 6 nombres tous plus petits ou égaux à 6 et tous differents
-en cherchant un peu on trouve le pass `4 2 6 3 1 5`
+- phase 6 : *hint '4'*\
+Using `Ghidra`\
+Syntax: array of 6 int <= 6 \
+key 6 = `4 2 6 3 1 5`
 
 
 ### Results
