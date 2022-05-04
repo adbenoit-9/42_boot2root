@@ -88,7 +88,7 @@ $ su root
 su: must be run from a terminal
 ```
 Connect with Laurie:\
-*rappel password: 330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4*
+*reminder password: 330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4*
 
 ```
 $ ssh laurie@192.168.56.102
