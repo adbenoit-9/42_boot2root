@@ -4,7 +4,7 @@
 ## About
 This project is an introduction to system penetration.
 
-subject : search for various means to pass root on the ISO given to you.
+Subject : search for various means to pass root on the ISO given to you.
 
 *In collaboration with [gmaris][1] and [thsembel][2] 🔥*
 
