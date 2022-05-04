@@ -12,6 +12,7 @@ $ git clone https://github.com/adbenoit-9/42_boot2root.git
 $ cd 42_boot2root
 ```
 
+\
 *In collaboration with [gmaris][1] and [thsembel][2] 🔥*
 
 [1]: https://github.com/gmaris42
